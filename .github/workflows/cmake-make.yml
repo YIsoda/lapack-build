@@ -18,3 +18,11 @@ jobs:
     - name: make
       run: make
       working-directory: build
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: lapack-lib
+        # Directory containing files to upload
+        path: build
+    
