@@ -22,14 +22,14 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: lapack-lib_dll
+        name: lapack-build_dll
         # Directory containing files to upload
         path: build/bin
     - name: Upload artifact (header)
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: lapack-lib_header
+        name: lapack-build_header
         # Directory containing files to upload
         path: build/include
 
@@ -57,7 +57,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v1.0.0
         with:
-          name: lapack-lib_dll
+          name: lapack-build_dll
           path: artifacts
       - name: Upload Release Asset
         id: upload-release-asset 
