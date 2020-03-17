@@ -18,11 +18,17 @@ jobs:
     - name: make
       run: make
       working-directory: build
-    - name: Upload artifact
+    - name: Upload artifact (dll)
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: lapack-lib
+        name: lapack-lib_dll
         # Directory containing files to upload
-        path: build
-    
+        path: build/bin
+    - name: Upload artifact (header)
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: lapack-lib_header
+        # Directory containing files to upload
+        path: build/include
