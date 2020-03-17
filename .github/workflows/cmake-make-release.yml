@@ -38,6 +38,8 @@ jobs:
     runs-on: ubuntu-18.04
     needs: build
     steps:
+      - name: install zip
+        run: sudo apt install zip
       - name: Checkout code
         uses: actions/checkout@master
       - name: Create Release
@@ -54,13 +56,19 @@ jobs:
             - Second Change
           draft: true
           prerelease: true
-      - name: Download artifacts
+      - name: Download dll
         uses: actions/download-artifact@v1.0.0
         with:
           name: lapack-build_dll
           path: artifacts
+      - name: Download header
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: lapack-build_header
       - name: list artifacts
         run: ls artifacts
+      - name: zip
+        run: zip lapack-build -r artifacts
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1.0.2
@@ -68,6 +76,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: artifacts/lapack-build_dll
-          asset_name: lapack-build_dll-release.zip
+          asset_path: lapack-build
+          asset_name: lapack-build-release.zip
           asset_content_type: application/zip
